@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.activities.OrderStartActivity"
-    android:orientation="vertical"
+    android:background="@color/background_color"
     android:gravity="center"
-    android:background="@color/background_color">
+    android:orientation="vertical"
+    tools:context=".ui.activities.OrderStartActivity">
 
     <Button
         android:id="@+id/new_order"
