@@ -9,7 +9,7 @@ public class Order {
     private Date createdDateTime;
     private Double totalPrice;
     private String status;
-    private List<Food> orderedFood;
+    private List<Item> orderedFood;
 
     public Order(int id, int tableNumber, Date createdDateTime, Double totalPrice) {
         this.id = id;
@@ -45,7 +45,7 @@ public class Order {
         return status;
     }
 
-    public void addFood(Food food){
+    public void addFood(Item food){
         this.orderedFood.add(food);
     }
 }
