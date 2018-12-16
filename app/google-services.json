@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "10713715587",
+    "firebase_url": "https://order-faster.firebaseio.com",
+    "project_id": "order-faster",
+    "storage_bucket": "order-faster.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:10713715587:android:53e2d4d3d34f7e10",
+        "android_client_info": {
+          "package_name": "com.example.iut.finalproject"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "10713715587-ugsib0gv3gtk15bvg533bol3n9mc2872.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.iut.finalproject",
+            "certificate_hash": "afed1173ff002a528b3be00b8e4b6264a00be012"
+          }
+        },
+        {
+          "client_id": "10713715587-36fqngnfu1rt6fnaob4seef8aef3k9s1.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCuJFh23nhNmMzyeG08IEb7nvX5F0IviFI"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "10713715587-36fqngnfu1rt6fnaob4seef8aef3k9s1.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
