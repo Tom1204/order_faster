@@ -4,12 +4,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".ui.activities.FoodActivity">
+    tools:context=".client.ui.activities.FoodActivity">
 
     <com.ogaclejapan.smarttablayout.SmartTabLayout
         android:id="@+id/viewpagertab"
         stl_clickable="true"
-        stl_defaultTabBackground="?attr/selectableItemBackground"
+        stl_defaultTabBackground="@color/background_color"
         stl_defaultTabTextAllCaps="true"
         stl_defaultTabTextColor="#FC000000"
         stl_defaultTabTextHorizontalPadding="16dp"
