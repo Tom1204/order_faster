@@ -6,7 +6,7 @@
     android:background="@color/background_color"
     android:gravity="center"
     android:orientation="vertical"
-    tools:context=".ui.activities.OrderStartActivity">
+    tools:context=".client.ui.activities.OrderStartActivity">
 
     <Button
         android:id="@+id/new_order"

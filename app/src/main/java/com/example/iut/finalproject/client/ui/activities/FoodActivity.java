@@ -1,18 +1,17 @@
-package com.example.iut.finalproject.ui.activities;
+package com.example.iut.finalproject.client.ui.activities;
 
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 
 import com.example.iut.finalproject.R;
 import com.example.iut.finalproject.rest_api.RouterApi;
-import com.example.iut.finalproject.ui.fragments.PageFragment;
+import com.example.iut.finalproject.client.ui.fragments.PageFragment;
 import com.example.iut.finalproject.models.ArrayResponse;
 import com.example.iut.finalproject.models.Category;
 import com.example.iut.finalproject.rest_api.RestClient;
-import com.example.iut.finalproject.utils.ViewPageAdapter;
+import com.example.iut.finalproject.client.utils.ViewPageAdapter;
 import com.ogaclejapan.smarttablayout.SmartTabLayout;
 import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
 

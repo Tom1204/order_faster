@@ -1,4 +1,4 @@
-package com.example.iut.finalproject.ui.placeholderViews;
+package com.example.iut.finalproject.client.ui.placeholderViews;
 
 
 import android.widget.TextView;

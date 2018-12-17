@@ -1,4 +1,4 @@
-package com.example.iut.finalproject.utils;
+package com.example.iut.finalproject.client.utils;
 
 import android.content.Context;
 

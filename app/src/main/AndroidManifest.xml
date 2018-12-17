@@ -11,15 +11,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ui.activities.Login" android:noHistory="true">
+        <activity android:name=".client.ui.activities.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.activities.OrderStartActivity"/>
-        <activity android:name=".ui.activities.FoodActivity" />
+        <activity android:name=".client.ui.activities.OrderStartActivity" />
+        <activity android:name=".client.ui.activities.FoodActivity" />
+        <activity android:name=".client.ui.activities.Register" />
     </application>
 
 </manifest>

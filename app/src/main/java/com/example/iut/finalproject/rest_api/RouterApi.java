@@ -2,6 +2,7 @@ package com.example.iut.finalproject.rest_api;
 
 import com.example.iut.finalproject.models.ArrayResponse;
 import com.example.iut.finalproject.models.Category;
+import com.example.iut.finalproject.models.Client;
 import com.example.iut.finalproject.models.Item;
 import com.example.iut.finalproject.models.Token;
 
@@ -24,4 +25,7 @@ public interface RouterApi {
 
     @GET("main/item/")
     Call<ArrayResponse<Item>> getItems(@Query("category") int categoryId);
+
+    @POST("main/register/")
+    Call<Token> registerClient(@Body Client client);
 }

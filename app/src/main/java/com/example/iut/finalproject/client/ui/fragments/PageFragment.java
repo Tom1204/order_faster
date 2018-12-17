@@ -1,4 +1,4 @@
-package com.example.iut.finalproject.ui.fragments;
+package com.example.iut.finalproject.client.ui.fragments;
 
 
 import android.os.Bundle;
@@ -15,7 +15,7 @@ import com.example.iut.finalproject.rest_api.RouterApi;
 import com.example.iut.finalproject.models.ArrayResponse;
 import com.example.iut.finalproject.models.Item;
 import com.example.iut.finalproject.rest_api.RestClient;
-import com.example.iut.finalproject.ui.placeholderViews.FoodItemView;
+import com.example.iut.finalproject.client.ui.placeholderViews.FoodItemView;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
 import java.util.List;
