@@ -23,7 +23,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Login extends AppCompatActivity {
+public class Login extends RequiredFields {
 
     @BindView(R.id.username)
     public EditText username;
@@ -38,6 +38,7 @@ public class Login extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
         ButterKnife.bind(this);
+        requiredFields = new EditText[]{username, password};
         mPref = getSharedPreferences("UserAuth", MODE_PRIVATE);
         if (mPref.contains("token")) {
             Intent intent = new Intent(Login.this, OrderStartActivity.class);
@@ -47,35 +48,36 @@ public class Login extends AppCompatActivity {
 
     @OnClick(R.id.login_action)
     public void login(View view) {
-        RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
-        Call<Token> call = service.login(username.getText().toString(), password.getText().toString());
-        call.enqueue(new Callback<Token>() {
-            @Override
-            public void onResponse(@NonNull Call<Token> call, @NonNull Response<Token> response) {
-                if (response.isSuccessful()) {
-                    SharedPreferences.Editor editor = mPref.edit();
-                    editor.putString("token", response.body().getToken());
-                    editor.commit();
-                    Intent intent = new Intent(Login.this, OrderStartActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    String error = null;
-                    try {
-                        error = ErrorHandler.getErrors(response.errorBody().string());
-                        ErrorHandler.getSnackbarError(findViewById(R.id.activity_login_layout), error).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+        if (!this.checkRequiredFields()) {
+            RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
+            Call<Token> call = service.login(username.getText().toString(), password.getText().toString());
+            call.enqueue(new Callback<Token>() {
+                @Override
+                public void onResponse(@NonNull Call<Token> call, @NonNull Response<Token> response) {
+                    if (response.isSuccessful()) {
+                        SharedPreferences.Editor editor = mPref.edit();
+                        editor.putString("token", response.body().getToken());
+                        editor.commit();
+                        Intent intent = new Intent(Login.this, OrderStartActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        String error = null;
+                        try {
+                            error = ErrorHandler.getErrors(response.errorBody().string());
+                            ErrorHandler.getSnackbarError(findViewById(R.id.activity_login_layout), error).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(@NonNull Call<Token> call, @NonNull Throwable t) {
-                t.printStackTrace();
-            }
-        });
-
+                @Override
+                public void onFailure(@NonNull Call<Token> call, @NonNull Throwable t) {
+                    t.printStackTrace();
+                }
+            });
+        }
     }
 
     @OnClick(R.id.register_action)

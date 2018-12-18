@@ -24,11 +24,10 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Register extends AppCompatActivity {
+public class Register extends RequiredFields {
 
     @BindView(R.id.register_first_name)
     EditText firstName;
-
 
     @BindView(R.id.register_last_name)
     EditText lastName;
@@ -50,46 +49,48 @@ public class Register extends AppCompatActivity {
         setContentView(R.layout.activity_register);
         ButterKnife.bind(this);
         mPref = getSharedPreferences("UserAuth", MODE_PRIVATE);
+        this.requiredFields = new EditText[]{firstName, lastName, username, password, email};
     }
 
     @OnClick(R.id.user_register_action)
     void registerUser(View view) {
-        Client client = new Client(
-                username.getText().toString(),
-                password.getText().toString(),
-                email.getText().toString(),
-                firstName.getText().toString(),
-                lastName.getText().toString()
-        );
+        if (!this.checkRequiredFields()) {
+            Client client = new Client(
+                    username.getText().toString(),
+                    password.getText().toString(),
+                    email.getText().toString(),
+                    firstName.getText().toString(),
+                    lastName.getText().toString()
+            );
 
-        RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
-        Call<Token> call = service.registerClient(client);
-        call.enqueue(new Callback<Token>() {
-            @Override
-            public void onResponse(Call<Token> call, Response<Token> response) {
-                if (response.isSuccessful()) {
-                    SharedPreferences.Editor editor = mPref.edit();
-                    editor.putString("token", response.body().getToken());
-                    editor.commit();
-                    Intent intent = new Intent(Register.this, OrderStartActivity.class);
-                    startActivity(intent);
-                    finish();
-                } else {
-                    try {
-                        String error = ErrorHandler.getErrors(response.errorBody().string());
-                        ErrorHandler.getSnackbarError(findViewById(R.id.activity_register_layout), error).show();
-                    } catch (IOException e) {
-                        e.printStackTrace();
+            RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
+            Call<Token> call = service.registerClient(client);
+            call.enqueue(new Callback<Token>() {
+                @Override
+                public void onResponse(Call<Token> call, Response<Token> response) {
+                    if (response.isSuccessful()) {
+                        SharedPreferences.Editor editor = mPref.edit();
+                        editor.putString("token", response.body().getToken());
+                        editor.commit();
+                        Intent intent = new Intent(Register.this, OrderStartActivity.class);
+                        startActivity(intent);
+                        finish();
+                    } else {
+                        try {
+                            String error = ErrorHandler.getErrors(response.errorBody().string());
+                            ErrorHandler.getSnackbarError(findViewById(R.id.activity_register_layout), error).show();
+                        } catch (IOException e) {
+                            e.printStackTrace();
+                        }
                     }
                 }
-            }
 
-            @Override
-            public void onFailure(Call<Token> call, Throwable t) {
-                t.printStackTrace();
-            }
-        });
+                @Override
+                public void onFailure(Call<Token> call, Throwable t) {
+                    t.printStackTrace();
+                }
+            });
 
-
+        }
     }
 }
