@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:hint="Last name"
-            android:inputType="textEmailAddress" />
+            android:inputType="text" />
 
 
         <EditText

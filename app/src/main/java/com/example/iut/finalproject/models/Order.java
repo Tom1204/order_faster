@@ -5,7 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 public class Order {
-    private int id = 0, tableNumber;
+    private int id, tableNumber;
     private Date createdDateTime;
     private Double totalPrice;
     private String status;
@@ -19,10 +19,11 @@ public class Order {
         this.orderedFood = new ArrayList<>();
     }
 
-    private void generateID() {
-        if (this.id == 0) {
-            this.id = 1;
-        }
+    public Order(int id, Date createdDateTime, Double totalPrice) {
+        this.id = id;
+        this.createdDateTime = createdDateTime;
+        this.totalPrice = totalPrice;
+        this.orderedFood = new ArrayList<>();
     }
 
     public int getId() {
@@ -45,7 +46,7 @@ public class Order {
         return status;
     }
 
-    public void addFood(Item food){
+    public void addFood(Item food) {
         this.orderedFood.add(food);
     }
 }
