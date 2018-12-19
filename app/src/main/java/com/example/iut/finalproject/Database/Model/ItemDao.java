@@ -24,4 +24,7 @@ public interface ItemDao {
 
     @Query("select item from order_item group by item")
     List<Integer> allItems();
+
+    @Query("delete from order_item where order_item.item = :itemId")
+    void deleteByItem(int itemId);
 }

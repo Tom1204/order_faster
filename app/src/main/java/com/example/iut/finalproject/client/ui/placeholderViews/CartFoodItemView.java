@@ -68,7 +68,7 @@ public class CartFoodItemView {
 
     @Click(R.id.cart_food_remove)
     public void removeFood() {
-        localDb.getItemDao().delete(orderItem);
+        localDb.getItemDao().deleteByItem(orderItem.getItem());
         listener.onOrderItemDeleted(this);
     }
 

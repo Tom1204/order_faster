@@ -85,8 +85,11 @@ public class FoodItemView {
 
     @Click(R.id.food_add_card)
     public void addToCard() {
-        ItemDao itemDao = localDb.getItemDao();
         int count = Integer.parseInt(foodCount.getText().toString());
+        if (count == 0)
+            return;
+        ItemDao itemDao = localDb.getItemDao();
         itemDao.insert(new OrderItem(item.getId(), count));
+        foodCount.setText(String.valueOf(0));
     }
 }

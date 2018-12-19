@@ -64,7 +64,6 @@ public class CartActivity extends AppCompatActivity implements CartFoodItemView.
             ids += "-" + itemId;
             Log.d("ItemSize", "" + itemId);
         }
-        ids.replaceFirst("-", "");
         RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
 
         Call<ArrayResponse<Item>> call = service.getItemsById(ids);
@@ -102,7 +101,7 @@ public class CartActivity extends AppCompatActivity implements CartFoodItemView.
             }
         }
         totalPrice.setText(String.valueOf(
-                "Your order: " + totalPriceDouble + " sum"
+                "Total price: " + totalPriceDouble + " sum"
         ));
     }
 
