@@ -71,6 +71,11 @@ public class Register extends RequiredFields {
                     if (response.isSuccessful()) {
                         SharedPreferences.Editor editor = mPref.edit();
                         editor.putString("token", response.body().getToken());
+                        editor.putString("token", response.body().getToken());
+                        editor.putString("username", response.body().getUsername());
+                        editor.putString("firstName", response.body().getFirstName());
+                        editor.putString("lastName", response.body().getLastName());
+                        editor.putString("userType", response.body().getUserType());
                         editor.commit();
                         Intent intent = new Intent(Register.this, OrderStartActivity.class);
                         startActivity(intent);

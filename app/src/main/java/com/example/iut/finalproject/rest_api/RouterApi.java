@@ -6,6 +6,8 @@ import com.example.iut.finalproject.models.Client;
 import com.example.iut.finalproject.models.Item;
 import com.example.iut.finalproject.models.Token;
 
+import java.util.List;
+
 import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.Field;
@@ -28,4 +30,7 @@ public interface RouterApi {
 
     @POST("main/register/")
     Call<Token> registerClient(@Body Client client);
+
+    @GET("main/item/")
+    Call<ArrayResponse<Item>> getItemsById(@Query("ids") String ids);
 }

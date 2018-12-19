@@ -1,6 +1,8 @@
 package com.example.iut.finalproject.client.ui.fragments;
 
 
+import android.arch.persistence.room.Room;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,7 +12,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.iut.finalproject.Database.LocalDb;
+import com.example.iut.finalproject.Database.Model.ItemDao;
 import com.example.iut.finalproject.R;
+import com.example.iut.finalproject.client.ui.activities.CartActivity;
+import com.example.iut.finalproject.client.ui.activities.Login;
 import com.example.iut.finalproject.rest_api.RouterApi;
 import com.example.iut.finalproject.models.ArrayResponse;
 import com.example.iut.finalproject.models.Item;
@@ -22,6 +28,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -32,6 +39,7 @@ import retrofit2.Response;
 public class PageFragment extends Fragment {
 
     private int categoryId;
+    private LocalDb localDb;
 
     @BindView(R.id.placeholder_view)
     public InfinitePlaceHolderView placeHolderView;
@@ -48,7 +56,10 @@ public class PageFragment extends Fragment {
         ButterKnife.bind(this, view);
         if (getArguments() != null)
             categoryId = getArguments().getInt("categoryId");
-        Log.d("categoryId", "page fragment: " + categoryId);
+        localDb = Room.
+                databaseBuilder(getContext(), LocalDb.class, "local_db").
+                fallbackToDestructiveMigration().
+                build();
         getItems();
     }
 
@@ -58,7 +69,6 @@ public class PageFragment extends Fragment {
         call.enqueue(new Callback<ArrayResponse<Item>>() {
             @Override
             public void onResponse(@NonNull Call<ArrayResponse<Item>> call, @NonNull Response<ArrayResponse<Item>> response) {
-                Log.d("foodItems", "Size: "+response.body().list.size());
                 addViews(response.body().list);
             }
 
@@ -71,7 +81,7 @@ public class PageFragment extends Fragment {
 
     private void addViews(List<Item> list) {
         for (Item item : list) {
-            placeHolderView.addView(new FoodItemView(item));
+            placeHolderView.addView(new FoodItemView(item, getContext()));
         }
     }
 
@@ -83,4 +93,9 @@ public class PageFragment extends Fragment {
         return fragment;
     }
 
+    @OnClick(R.id.fab_add_to_card)
+    public void makeOrder(View view) {
+        Intent intent = new Intent(getContext(), CartActivity.class);
+        startActivity(intent);
+    }
 }

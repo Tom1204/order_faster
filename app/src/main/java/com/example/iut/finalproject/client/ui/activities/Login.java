@@ -2,9 +2,8 @@ package com.example.iut.finalproject.client.ui.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.NonNull;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
 
@@ -57,6 +56,10 @@ public class Login extends RequiredFields {
                     if (response.isSuccessful()) {
                         SharedPreferences.Editor editor = mPref.edit();
                         editor.putString("token", response.body().getToken());
+                        editor.putString("username", response.body().getUsername());
+                        editor.putString("firstName", response.body().getFirstName());
+                        editor.putString("lastName", response.body().getLastName());
+                        editor.putString("userType", response.body().getUserType());
                         editor.commit();
                         Intent intent = new Intent(Login.this, OrderStartActivity.class);
                         startActivity(intent);

@@ -2,9 +2,11 @@ package com.example.iut.finalproject.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Item {
+import java.io.Serializable;
+
+public class Item implements Serializable {
     @SerializedName("id")
-    private String id;
+    private int id;
 
     @SerializedName("name")
     private String name;
@@ -24,11 +26,17 @@ public class Item {
     @SerializedName("category")
     private String category;
 
-    public String getId() {
+    @SerializedName("description")
+    private String description;
+
+    @SerializedName("image")
+    private Image image;
+
+    public int getId() {
         return id;
     }
 
-    public void setId(String id) {
+    public void setId(int id) {
         this.id = id;
     }
 
@@ -64,6 +72,13 @@ public class Item {
         this.timePreparation = timePreparation;
     }
 
+    public boolean isIs_active() {
+        return is_active;
+    }
+
+    public void setIs_active(boolean is_active) {
+        this.is_active = is_active;
+    }
 
     public String getCategory() {
         return category;
@@ -73,11 +88,19 @@ public class Item {
         this.category = category;
     }
 
-    public boolean isIs_active() {
-        return is_active;
+    public String getDescription() {
+        return description;
     }
 
-    public void setIs_active(boolean is_active) {
-        this.is_active = is_active;
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Image getImage() {
+        return image;
+    }
+
+    public void setImage(Image image) {
+        this.image = image;
     }
 }

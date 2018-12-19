@@ -14,12 +14,15 @@
         <activity android:name=".client.ui.activities.Login">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity android:name=".client.ui.activities.OrderStartActivity" />
         <activity android:name=".client.ui.activities.FoodActivity" />
         <activity android:name=".client.ui.activities.Register" />
+        <activity android:name=".client.ui.activities.ItemDetailActivity" />
+        <activity android:name=".client.ui.activities.CartActivity" />
     </application>
 
 </manifest>
