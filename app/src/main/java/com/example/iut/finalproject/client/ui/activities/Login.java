@@ -40,7 +40,7 @@ public class Login extends RequiredFields {
         requiredFields = new EditText[]{username, password};
         mPref = getSharedPreferences("UserAuth", MODE_PRIVATE);
         if (mPref.contains("token")) {
-            Intent intent = new Intent(Login.this, OrderStartActivity.class);
+            Intent intent = new Intent(Login.this, FoodActivity.class);
             startActivity(intent);
         }
     }
@@ -61,7 +61,7 @@ public class Login extends RequiredFields {
                         editor.putString("lastName", response.body().getLastName());
                         editor.putString("userType", response.body().getUserType());
                         editor.commit();
-                        Intent intent = new Intent(Login.this, OrderStartActivity.class);
+                        Intent intent = new Intent(Login.this, FoodActivity.class);
                         startActivity(intent);
                         finish();
                     } else {

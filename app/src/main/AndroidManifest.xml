@@ -18,7 +18,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".client.ui.activities.OrderStartActivity" />
         <activity android:name=".client.ui.activities.FoodActivity" />
         <activity android:name=".client.ui.activities.Register" />
         <activity android:name=".client.ui.activities.ItemDetailActivity" />

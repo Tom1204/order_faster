@@ -1,45 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
     tools:context=".client.ui.activities.FoodActivity">
 
-    <com.ogaclejapan.smarttablayout.SmartTabLayout
-        android:id="@+id/viewpagertab"
-        stl_clickable="true"
-        stl_defaultTabBackground="@color/background_color"
-        stl_defaultTabTextAllCaps="true"
-        stl_defaultTabTextColor="#FC000000"
-        stl_defaultTabTextHorizontalPadding="16dp"
-        stl_defaultTabTextMinWidth="0dp"
-        stl_defaultTabTextSize="12sp"
-        stl_distributeEvenly="false"
-        stl_dividerColor="#4D000000"
-        stl_dividerThickness="1dp"
-        stl_drawDecorationAfterTab="false"
-        stl_indicatorAlwaysInCenter="false"
-        stl_indicatorColor="#40C4FF"
-        stl_indicatorCornerRadius="2dp"
-        stl_indicatorGravity="bottom"
-        stl_indicatorInFront="false"
-        stl_indicatorInterpolation="smart"
-        stl_indicatorThickness="4dp"
-        stl_indicatorWidth="auto"
-        stl_indicatorWithoutPadding="false"
-        stl_overlineColor="#4D000000"
-        stl_overlineThickness="0dp"
-        stl_titleOffset="24dp"
-        stl_underlineColor="#4D000000"
-        stl_underlineThickness="1dp"
+
+    <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="48dp" />
+        android:layout_height="wrap_content">
+
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/viewpagertab"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:tabMode="scrollable"
+            />
+
+    </android.support.design.widget.AppBarLayout>
 
     <android.support.v4.view.ViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/viewpagertab" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
-</LinearLayout>
+</android.support.design.widget.CoordinatorLayout>

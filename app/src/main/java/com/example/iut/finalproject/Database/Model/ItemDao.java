@@ -22,6 +22,9 @@ public interface ItemDao {
     @Query("select order_item.id, order_item.item, order_item.comment, sum(order_item.count) as count from order_item group by item")
     List<OrderItem> allOrderItem();
 
+    @Query("delete from order_item")
+    void clear();
+
     @Query("select item from order_item group by item")
     List<Integer> allItems();
 

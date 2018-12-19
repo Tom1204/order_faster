@@ -77,7 +77,7 @@ public class Register extends RequiredFields {
                         editor.putString("lastName", response.body().getLastName());
                         editor.putString("userType", response.body().getUserType());
                         editor.commit();
-                        Intent intent = new Intent(Register.this, OrderStartActivity.class);
+                        Intent intent = new Intent(Register.this, FoodActivity.class);
                         startActivity(intent);
                         finish();
                     } else {
