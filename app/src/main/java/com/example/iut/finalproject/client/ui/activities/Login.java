@@ -113,5 +113,6 @@ public class Login extends RequiredFields {
     public void register(View view) {
         Intent intent = new Intent(this, Register.class);
         startActivity(intent);
+        finish();
     }
 }

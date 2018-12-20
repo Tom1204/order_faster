@@ -22,7 +22,7 @@
         <activity android:name=".client.ui.activities.Register" />
         <activity android:name=".client.ui.activities.ItemDetailActivity" />
         <activity android:name=".client.ui.activities.CartActivity" />
-        <activity android:name=".manage.ui.activities.OrderItemActivity"></activity>
+        <activity android:name=".manage.ui.activities.OrderItemActivity" />
     </application>
 
 </manifest>

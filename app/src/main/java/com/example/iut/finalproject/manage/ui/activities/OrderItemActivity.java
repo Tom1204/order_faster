@@ -1,5 +1,7 @@
 package com.example.iut.finalproject.manage.ui.activities;
 
+import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
@@ -8,8 +10,11 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.example.iut.finalproject.R;
+import com.example.iut.finalproject.client.ui.activities.Login;
 import com.example.iut.finalproject.manage.ui.fragments.OrderItemFragment;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
@@ -21,6 +26,7 @@ import butterknife.ButterKnife;
 
 public class OrderItemActivity extends AppCompatActivity {
 
+    private SharedPreferences sharedPreferences;
 
     @BindView(R.id.orderviewpager)
     public ViewPager viewPager;
@@ -47,6 +53,27 @@ public class OrderItemActivity extends AppCompatActivity {
             adapter.add(OrderItemFragment.newInstance(status.toLowerCase()), status);
         }
     }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == R.id.logout_action) {
+            sharedPreferences = getSharedPreferences("UserAuth", MODE_PRIVATE);
+            SharedPreferences.Editor editor = sharedPreferences.edit();
+            editor.clear();
+            editor.commit();
+            Intent intent = new Intent(this, Login.class);
+            startActivity(intent);
+            finish();
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
 }
 
 class OrderItemPagerAdapter extends FragmentPagerAdapter {
