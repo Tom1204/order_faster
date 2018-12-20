@@ -29,7 +29,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrderItemFragment extends Fragment implements OrderItemView.OnOrderItemIsDoneListener{
+public class OrderItemFragment extends Fragment implements OrderItemView.OnOrderItemIsDoneListener {
 
     @BindView(R.id.order_item_placeholder_view)
     public InfinitePlaceHolderView placeHolderView;
@@ -60,7 +60,8 @@ public class OrderItemFragment extends Fragment implements OrderItemView.OnOrder
         call.enqueue(new Callback<ArrayResponse<OrderItemRead>>() {
             @Override
             public void onResponse(@NonNull Call<ArrayResponse<OrderItemRead>> call, @NonNull Response<ArrayResponse<OrderItemRead>> response) {
-                addViews(response.body().list);
+                if (response.isSuccessful())
+                    addViews(response.body().list);
             }
 
             @Override
