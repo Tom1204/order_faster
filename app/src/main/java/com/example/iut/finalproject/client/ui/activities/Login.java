@@ -65,9 +65,12 @@ public class Login extends RequiredFields {
                         startActivity(intent);
                         finish();
                     } else {
-                        String error = null;
                         try {
-                            error = ErrorHandler.getErrors(response.errorBody().string());
+                            String error;
+                            if (response.code() == 400)
+                                error = ErrorHandler.getErrors(response.errorBody().string());
+                            else
+                                error = "Server is not working, please try again later";
                             ErrorHandler.getSnackbarError(findViewById(R.id.activity_login_layout), error).show();
                         } catch (IOException e) {
                             e.printStackTrace();

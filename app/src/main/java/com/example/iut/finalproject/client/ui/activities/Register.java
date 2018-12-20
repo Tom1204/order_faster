@@ -82,7 +82,11 @@ public class Register extends RequiredFields {
                         finish();
                     } else {
                         try {
-                            String error = ErrorHandler.getErrors(response.errorBody().string());
+                            String error;
+                            if (response.code() == 400)
+                                error = ErrorHandler.getErrors(response.errorBody().string());
+                            else
+                                error = "Server is not working, please try again later";
                             ErrorHandler.getSnackbarError(findViewById(R.id.activity_register_layout), error).show();
                         } catch (IOException e) {
                             e.printStackTrace();

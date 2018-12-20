@@ -18,14 +18,11 @@ import android.view.MenuItem;
 import com.example.iut.finalproject.Database.LocalDb;
 import com.example.iut.finalproject.Database.Model.ItemDao;
 import com.example.iut.finalproject.R;
-import com.example.iut.finalproject.rest_api.RouterApi;
 import com.example.iut.finalproject.client.ui.fragments.PageFragment;
 import com.example.iut.finalproject.models.ArrayResponse;
 import com.example.iut.finalproject.models.Category;
 import com.example.iut.finalproject.rest_api.RestClient;
-import com.example.iut.finalproject.client.utils.ViewPageAdapter;
-import com.ogaclejapan.smarttablayout.SmartTabLayout;
-import com.ogaclejapan.smarttablayout.utils.v4.FragmentPagerItems;
+import com.example.iut.finalproject.rest_api.RouterApi;
 
 import java.util.ArrayList;
 import java.util.List;
