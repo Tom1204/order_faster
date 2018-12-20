@@ -5,9 +5,8 @@ import com.example.iut.finalproject.models.Category;
 import com.example.iut.finalproject.models.Client;
 import com.example.iut.finalproject.models.Item;
 import com.example.iut.finalproject.models.Order;
+import com.example.iut.finalproject.models.OrderItemRead;
 import com.example.iut.finalproject.models.Token;
-
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -17,6 +16,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.Path;
 import retrofit2.http.Query;
 
 public interface RouterApi {
@@ -39,4 +39,10 @@ public interface RouterApi {
 
     @POST("main/order/")
     Call<ResponseBody> requestOrder(@Header("Authorization") String auth, @Body Order order);
+
+    @GET("main/order_item/")
+    Call<ArrayResponse<OrderItemRead>> getOrderItemsByStatus(@Header("Authorization") String auth, @Query("status") String status);
+
+    @POST("main/order_item/{order_item_id}/is_prepared/")
+    Call<ResponseBody> preparedOrderItem(@Header("Authorization") String auth, @Path("order_item_id") int order_item_id);
 }

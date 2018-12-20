@@ -1,52 +1,20 @@
-package com.example.iut.finalproject.Database.Model;
-
-import android.arch.persistence.room.ColumnInfo;
-import android.arch.persistence.room.Entity;
-import android.arch.persistence.room.Ignore;
-import android.arch.persistence.room.PrimaryKey;
+package com.example.iut.finalproject.models;
 
 import com.google.gson.annotations.SerializedName;
 
-@Entity(tableName = "order_item")
-public class OrderItem {
-
-    @PrimaryKey(autoGenerate = true)
+public class OrderItemRead {
     @SerializedName("id")
     private int id;
-
-    @ColumnInfo(name = "item")
     @SerializedName("item")
-    private int item;
-
-    @ColumnInfo(name = "count")
+    private Item item;
     @SerializedName("count")
     private int count;
-
-    @ColumnInfo(name = "comment")
     @SerializedName("comment")
     private String comment;
-
-    @ColumnInfo(name = "status")
     @SerializedName("status")
     private String status;
-
-
-    @ColumnInfo(name = "total_price")
     @SerializedName("total_price")
     private String totalPrice;
-
-
-    @Ignore
-    public OrderItem(int item, int count, String comment) {
-        this.item = item;
-        this.count = count;
-        this.comment = comment;
-    }
-
-    public OrderItem(int item, int count) {
-        this.item = item;
-        this.count = count;
-    }
 
     public int getId() {
         return id;
@@ -56,11 +24,11 @@ public class OrderItem {
         this.id = id;
     }
 
-    public int getItem() {
+    public Item getItem() {
         return item;
     }
 
-    public void setItem(int item) {
+    public void setItem(Item item) {
         this.item = item;
     }
 
