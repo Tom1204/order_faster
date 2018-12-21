@@ -22,7 +22,8 @@
         <activity android:name=".client.ui.activities.Register" />
         <activity android:name=".client.ui.activities.ItemDetailActivity" />
         <activity android:name=".client.ui.activities.CartActivity" />
-        <activity android:name=".manage.ui.activities.OrderItemActivity" />
+        <activity android:name=".manage.ui.activities.OrderActivity" />
+        <activity android:name=".manage.ui.activities.OrderDescriptionActivity"></activity>
     </application>
 
 </manifest>

@@ -3,10 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".manage.ui.fragments.OrderItemFragment">
+    tools:context=".manage.ui.fragments.OrderListFragment">
 
     <com.mindorks.placeholderview.InfinitePlaceHolderView
-        android:id="@+id/order_item_placeholder_view"
+        android:id="@+id/order_placeholder_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 

@@ -8,8 +8,14 @@ import java.util.Date;
 import java.util.List;
 
 public class Order {
+    public static final String  REJECTED = "rejected";
+    public static final String  PENDING = "pending";
+    public static final String  FINISHED = "finished";
+
     @SerializedName("id")
     private int id;
+    @SerializedName("user")
+    private Client user;
     @SerializedName("table")
     private int tableNumber;
     @SerializedName("created_date")
@@ -63,5 +69,17 @@ public class Order {
 
     public void addFood(OrderItem orderItem) {
         this.orderItem.add(orderItem);
+    }
+
+    public Client getUser() {
+        return user;
+    }
+
+    public void setUser(Client user) {
+        this.user = user;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

@@ -16,6 +16,7 @@ import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -45,4 +46,11 @@ public interface RouterApi {
 
     @POST("main/order_item/{order_item_id}/is_prepared/")
     Call<ResponseBody> preparedOrderItem(@Header("Authorization") String auth, @Path("order_item_id") int order_item_id);
+
+    @PUT("main/order/{order_id}/")
+    Call<ResponseBody> changeOrder(@Header("Authorization") String auth, @Path("order_id") int order_id, @Body Order order);
+
+    @GET("main/order/")
+    Call<ArrayResponse<Order>> getOrderByStatus(@Header("Authorization") String auth, @Query("status") String status);
+
 }

@@ -7,10 +7,8 @@ import android.support.annotation.NonNull;
 import android.view.View;
 import android.widget.EditText;
 
-import com.example.iut.finalproject.Database.Model.OrderItem;
 import com.example.iut.finalproject.R;
-import com.example.iut.finalproject.manage.ui.activities.OrderItemActivity;
-import com.example.iut.finalproject.manage.ui.placeholderViews.OrderItemView;
+import com.example.iut.finalproject.manage.ui.activities.OrderActivity;
 import com.example.iut.finalproject.models.ErrorHandler;
 import com.example.iut.finalproject.models.Token;
 import com.example.iut.finalproject.rest_api.RestClient;
@@ -48,7 +46,7 @@ public class Login extends RequiredFields {
             if (userType.equals("client"))
                 intent = new Intent(Login.this, FoodActivity.class);
             else if (userType.equals("kitchen"))
-                intent = new Intent(Login.this, OrderItemActivity.class);
+                intent = new Intent(Login.this, OrderActivity.class);
             else {
                 String error = "User can not log in";
                 ErrorHandler.getSnackbarError(findViewById(R.id.activity_login_layout), error).show();
@@ -79,7 +77,7 @@ public class Login extends RequiredFields {
                         if (response.body().getUserType().equals("client"))
                             intent = new Intent(Login.this, FoodActivity.class);
                         else if (response.body().getUserType().equals("kitchen"))
-                            intent = new Intent(Login.this, OrderItemActivity.class);
+                            intent = new Intent(Login.this, OrderActivity.class);
                         else {
                             String error = "User can not log in";
                             ErrorHandler.getSnackbarError(findViewById(R.id.activity_login_layout), error).show();

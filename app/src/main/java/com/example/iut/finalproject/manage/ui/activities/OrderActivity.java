@@ -15,8 +15,7 @@ import android.view.MenuItem;
 
 import com.example.iut.finalproject.R;
 import com.example.iut.finalproject.client.ui.activities.Login;
-import com.example.iut.finalproject.manage.ui.fragments.OrderItemFragment;
-import com.mindorks.placeholderview.InfinitePlaceHolderView;
+import com.example.iut.finalproject.manage.ui.fragments.OrderListFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class OrderItemActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity {
 
     private SharedPreferences sharedPreferences;
 
@@ -34,23 +33,23 @@ public class OrderItemActivity extends AppCompatActivity {
     @BindView(R.id.orderviewpagertab)
     public TabLayout viewPagerTab;
 
-    OrderItemPagerAdapter adapter;
+    OrderPagerAdapter adapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_order_item);
+        setContentView(R.layout.activity_order);
         ButterKnife.bind(this);
-        adapter = new OrderItemPagerAdapter(getSupportFragmentManager());
+        adapter = new OrderPagerAdapter(getSupportFragmentManager());
         viewPager.setAdapter(adapter);
         viewPagerTab.setupWithViewPager(viewPager);
         initViewPager();
     }
 
     private void initViewPager() {
-        String[] statuses = new String[]{"Pending", "Prepared"};
+        String[] statuses = new String[]{"Pending", "Finished", "Rejected"};
         for (String status : statuses) {
-            adapter.add(OrderItemFragment.newInstance(status.toLowerCase()), status);
+            adapter.add(OrderListFragment.newInstance(status.toLowerCase()), status);
         }
     }
 
@@ -76,12 +75,12 @@ public class OrderItemActivity extends AppCompatActivity {
 
 }
 
-class OrderItemPagerAdapter extends FragmentPagerAdapter {
+class OrderPagerAdapter extends FragmentPagerAdapter {
 
     List<Fragment> fragmentList = new ArrayList<>();
     List<String> titleList = new ArrayList<>();
 
-    public OrderItemPagerAdapter(FragmentManager fm) {
+    public OrderPagerAdapter(FragmentManager fm) {
         super(fm);
     }
 

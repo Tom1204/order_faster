@@ -11,9 +11,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.example.iut.finalproject.R;
-import com.example.iut.finalproject.manage.ui.placeholderViews.OrderItemView;
+import com.example.iut.finalproject.manage.ui.placeholderViews.OrderView;
 import com.example.iut.finalproject.models.ArrayResponse;
-import com.example.iut.finalproject.models.OrderItemRead;
+import com.example.iut.finalproject.models.Order;
 import com.example.iut.finalproject.rest_api.RestClient;
 import com.example.iut.finalproject.rest_api.RouterApi;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
@@ -29,64 +29,65 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrderItemFragment extends Fragment implements OrderItemView.OnOrderItemIsDoneListener {
+public class OrderListFragment extends Fragment implements OrderView.OnOrderIsDoneListener {
 
-    @BindView(R.id.order_item_placeholder_view)
+    @BindView(R.id.order_placeholder_view)
     public InfinitePlaceHolderView placeHolderView;
 
     private String status;
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
     private SharedPreferences sharedPreferences;
 
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_order_item, container, false);
+        return inflater.inflate(R.layout.fragment_order_list, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         sharedPreferences = getContext().getSharedPreferences("UserAuth", getContext().MODE_PRIVATE);
         ButterKnife.bind(this, view);
-        if (getArguments() != null)
-            status = getArguments().getString("status");
         getItems();
     }
 
     private void getItems() {
         RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
         String auth = String.valueOf("Token " + sharedPreferences.getString("token", ""));
-        Call<ArrayResponse<OrderItemRead>> call = service.getOrderItemsByStatus(auth, status);
-        call.enqueue(new Callback<ArrayResponse<OrderItemRead>>() {
+        Call<ArrayResponse<Order>> call = service.getOrderByStatus(auth, status);
+        call.enqueue(new Callback<ArrayResponse<Order>>() {
             @Override
-            public void onResponse(@NonNull Call<ArrayResponse<OrderItemRead>> call, @NonNull Response<ArrayResponse<OrderItemRead>> response) {
+            public void onResponse(@NonNull Call<ArrayResponse<Order>> call, @NonNull Response<ArrayResponse<Order>> response) {
                 if (response.isSuccessful())
                     addViews(response.body().list);
             }
 
             @Override
-            public void onFailure(@NonNull Call<ArrayResponse<OrderItemRead>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ArrayResponse<Order>> call, @NonNull Throwable t) {
                 t.printStackTrace();
             }
         });
     }
 
-    private void addViews(List<OrderItemRead> list) {
-        for (OrderItemRead item : list) {
-            placeHolderView.addView(new OrderItemView(getContext(), item, this));
+    private void addViews(List<Order> list) {
+        for (Order item : list) {
+            placeHolderView.addView(new OrderView(getContext(), item, this));
         }
     }
 
-    static public OrderItemFragment newInstance(String status) {
-        Bundle bundle = new Bundle();
-        bundle.putString("status", status);
-        OrderItemFragment fragment = new OrderItemFragment();
-        fragment.setArguments(bundle);
+    static public OrderListFragment newInstance(String status) {
+        OrderListFragment fragment = new OrderListFragment();
+        fragment.setStatus(status);
         return fragment;
     }
 
     @Override
-    public void onOrderItemIsDone(OrderItemView view) {
+    public void onOrderIsDone(OrderView view) {
         placeHolderView.removeView(view);
     }
 }

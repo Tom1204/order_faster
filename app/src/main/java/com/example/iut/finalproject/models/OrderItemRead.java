@@ -5,6 +5,8 @@ import com.google.gson.annotations.SerializedName;
 public class OrderItemRead {
     @SerializedName("id")
     private int id;
+    @SerializedName("order")
+    private Order order;
     @SerializedName("item")
     private Item item;
     @SerializedName("count")
@@ -62,5 +64,13 @@ public class OrderItemRead {
 
     public void setTotalPrice(String totalPrice) {
         this.totalPrice = totalPrice;
+    }
+
+    public Order getOrder() {
+        return order;
+    }
+
+    public void setOrder(Order order) {
+        this.order = order;
     }
 }
