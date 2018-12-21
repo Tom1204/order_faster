@@ -2,13 +2,8 @@ package com.example.iut.finalproject.manage.ui.activities;
 
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.design.widget.TabLayout;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
@@ -16,13 +11,9 @@ import android.widget.TextView;
 
 import com.example.iut.finalproject.R;
 import com.example.iut.finalproject.client.ui.activities.Login;
-import com.example.iut.finalproject.models.Order;
-import com.mindorks.placeholderview.annotations.View;
-
-import org.w3c.dom.Text;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.example.iut.finalproject.manage.ui.fragments.OrderItemListFragment;
+import com.example.iut.finalproject.models.ManagerOrder;
+import com.mindorks.placeholderview.annotations.Resolve;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,7 +21,7 @@ import butterknife.ButterKnife;
 public class OrderDescriptionActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
 
-    private Order order;
+    private ManagerOrder order;
 
     @BindView(R.id.order_item_list_frame)
     public FrameLayout frameLayout;
@@ -56,15 +47,28 @@ public class OrderDescriptionActivity extends AppCompatActivity {
     @BindView(R.id.order_status)
     TextView orderStatus;
 
-    @BindView(R.id.order_comment)
-    TextView orderComment;
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        order = (ManagerOrder) getIntent().getSerializableExtra("order");
         setContentView(R.layout.activity_order_description);
         ButterKnife.bind(this);
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.order_item_list_frame, OrderItemListFragment.newInstance(order.getOrderItems()))
+                .commit();
+    init();
+    }
+
+    private void init() {
+        orderId.setText(String.valueOf(order.getId()));
+        orderTime.setText(order.getCreatedDateTime().toString());
+        orderUserName.setText(order.getUser().getFirstName() + " " + order.getUser().getLastName());
+        orderTableNumber.setText(String.valueOf(order.getTableNumber()));
+        orderNumberOfMeals.setText(String.valueOf(order.getOrderItems().size()));
+        orderTotalPrice.setText(String.valueOf(order.getTotalPrice()));
+        orderStatus.setText(order.getStatus());
+
     }
 
     @Override
@@ -88,11 +92,11 @@ public class OrderDescriptionActivity extends AppCompatActivity {
     }
 
 
-    public Order getOrder() {
+    public ManagerOrder getOrder() {
         return order;
     }
 
-    public void setOrder(Order order) {
+    public void setOrder(ManagerOrder order) {
         this.order = order;
     }
 }

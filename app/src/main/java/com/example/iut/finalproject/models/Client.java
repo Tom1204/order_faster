@@ -2,7 +2,9 @@ package com.example.iut.finalproject.models;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Client {
+import java.io.Serializable;
+
+public class Client implements Serializable {
     @SerializedName("username")
     private String username;
     @SerializedName("password")

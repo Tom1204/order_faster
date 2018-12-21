@@ -10,12 +10,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.iut.finalproject.Database.Model.OrderItem;
 import com.example.iut.finalproject.R;
 import com.example.iut.finalproject.manage.ui.placeholderViews.OrderItemView;
+import com.example.iut.finalproject.models.Order;
 import com.example.iut.finalproject.models.OrderItemRead;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -31,7 +32,7 @@ public class OrderItemListFragment extends Fragment implements OrderItemView.OnO
 
     private List<OrderItemRead> orderItems;
 
-    public static OrderItemListFragment newInstance(ArrayList<OrderItemRead> orderItems) {
+    public static OrderItemListFragment newInstance(List<OrderItemRead> orderItems) {
         OrderItemListFragment fragment = new OrderItemListFragment();
         fragment.setOrderItems(orderItems);
         return fragment;
@@ -63,7 +64,7 @@ public class OrderItemListFragment extends Fragment implements OrderItemView.OnO
         return orderItems;
     }
 
-    public void setOrderItems(ArrayList<OrderItemRead> orderItems) {
+    public void setOrderItems(List<OrderItemRead> orderItems) {
         this.orderItems = orderItems;
     }
 

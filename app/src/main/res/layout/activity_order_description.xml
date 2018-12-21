@@ -81,7 +81,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Fri Dec 21 03:06:43"
-                android:textSize="18sp" />
+                android:maxLines="1"
+                android:textSize="16sp" />
 
             <TextView
                 android:id="@+id/order_user_name"
@@ -123,24 +124,7 @@
                 android:textSize="18sp" />
 
         </LinearLayout>
-
-
     </LinearLayout>
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="15sp"
-        android:text="Comment" />
-
-    <TextView
-        android:id="@+id/order_comment"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="5sp"
-        android:maxLines="2"
-        android:text="This is very good restaraunt!"/>
-
     <FrameLayout
         android:id="@+id/order_item_list_frame"
         android:layout_width="match_parent"

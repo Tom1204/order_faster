@@ -7,8 +7,10 @@ import android.arch.persistence.room.PrimaryKey;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.io.Serializable;
+
 @Entity(tableName = "order_item")
-public class OrderItem {
+public class OrderItem implements Serializable {
 
     @PrimaryKey(autoGenerate = true)
     @SerializedName("id")

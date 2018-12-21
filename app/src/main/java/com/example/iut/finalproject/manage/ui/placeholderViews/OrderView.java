@@ -1,10 +1,14 @@
 package com.example.iut.finalproject.manage.ui.placeholderViews;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
+import android.support.annotation.MainThread;
 import android.widget.TextView;
 
 import com.example.iut.finalproject.R;
+import com.example.iut.finalproject.manage.ui.activities.OrderDescriptionActivity;
+import com.example.iut.finalproject.models.ManagerOrder;
 import com.example.iut.finalproject.models.Order;
 import com.example.iut.finalproject.rest_api.RestClient;
 import com.example.iut.finalproject.rest_api.RouterApi;
@@ -20,7 +24,7 @@ import retrofit2.Response;
 
 @Layout(R.layout.order_view)
 public class OrderView {
-    private Order order;
+    private ManagerOrder order;
     private Context context;
 
     @View(R.id.order_id)
@@ -42,7 +46,7 @@ public class OrderView {
 
     private OnOrderIsDoneListener onOrderIsDoneListener;
 
-    public OrderView(Context context, Order order, OnOrderIsDoneListener onOrderIsDoneListener) {
+    public OrderView(Context context, ManagerOrder order, OnOrderIsDoneListener onOrderIsDoneListener) {
         sharedPreferences = context.getSharedPreferences("UserAuth", context.MODE_PRIVATE);
         this.order = order;
         this.context = context;
@@ -63,7 +67,7 @@ public class OrderView {
         order.setStatus(Order.REJECTED);
         RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
         String auth = String.valueOf("Token " + sharedPreferences.getString("token", ""));
-        Call<ResponseBody> call = service.changeOrder(auth, order.getId(), order);
+        Call<ResponseBody> call = service.rejectOrder(auth, order.getId());
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -81,7 +85,9 @@ public class OrderView {
 
     @Click(R.id.order_prepare)
     public void orderPrepare() {
-//        TODO: OrderDescription activity
+        Intent intent = new Intent(context, OrderDescriptionActivity.class);
+        intent.putExtra("order", order);
+        context.startActivity(intent);
     }
 
     public interface OnOrderIsDoneListener {

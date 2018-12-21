@@ -4,6 +4,7 @@ import com.example.iut.finalproject.models.ArrayResponse;
 import com.example.iut.finalproject.models.Category;
 import com.example.iut.finalproject.models.Client;
 import com.example.iut.finalproject.models.Item;
+import com.example.iut.finalproject.models.ManagerOrder;
 import com.example.iut.finalproject.models.Order;
 import com.example.iut.finalproject.models.OrderItemRead;
 import com.example.iut.finalproject.models.Token;
@@ -50,7 +51,10 @@ public interface RouterApi {
     @PUT("main/order/{order_id}/")
     Call<ResponseBody> changeOrder(@Header("Authorization") String auth, @Path("order_id") int order_id, @Body Order order);
 
-    @GET("main/order/")
-    Call<ArrayResponse<Order>> getOrderByStatus(@Header("Authorization") String auth, @Query("status") String status);
+    @PUT("main/order/{order_id}/reject/")
+    Call<ResponseBody> rejectOrder(@Header("Authorization") String auth, @Path("order_id") int order_id);
+
+    @GET("main/order/extended/")
+    Call<ArrayResponse<ManagerOrder>> getExtendedOrdersByStatus(@Header("Authorization") String auth, @Query("status") String status);
 
 }

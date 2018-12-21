@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import com.example.iut.finalproject.R;
 import com.example.iut.finalproject.manage.ui.placeholderViews.OrderView;
 import com.example.iut.finalproject.models.ArrayResponse;
+import com.example.iut.finalproject.models.ManagerOrder;
 import com.example.iut.finalproject.models.Order;
 import com.example.iut.finalproject.rest_api.RestClient;
 import com.example.iut.finalproject.rest_api.RouterApi;
@@ -59,23 +60,23 @@ public class OrderListFragment extends Fragment implements OrderView.OnOrderIsDo
     private void getItems() {
         RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
         String auth = String.valueOf("Token " + sharedPreferences.getString("token", ""));
-        Call<ArrayResponse<Order>> call = service.getOrderByStatus(auth, status);
-        call.enqueue(new Callback<ArrayResponse<Order>>() {
+        Call<ArrayResponse<ManagerOrder>> call = service.getExtendedOrdersByStatus(auth, status);
+        call.enqueue(new Callback<ArrayResponse<ManagerOrder>>() {
             @Override
-            public void onResponse(@NonNull Call<ArrayResponse<Order>> call, @NonNull Response<ArrayResponse<Order>> response) {
+            public void onResponse(@NonNull Call<ArrayResponse<ManagerOrder>> call, @NonNull Response<ArrayResponse<ManagerOrder>> response) {
                 if (response.isSuccessful())
                     addViews(response.body().list);
             }
 
             @Override
-            public void onFailure(@NonNull Call<ArrayResponse<Order>> call, @NonNull Throwable t) {
+            public void onFailure(@NonNull Call<ArrayResponse<ManagerOrder>> call, @NonNull Throwable t) {
                 t.printStackTrace();
             }
         });
     }
 
-    private void addViews(List<Order> list) {
-        for (Order item : list) {
+    private void addViews(List<ManagerOrder> list) {
+        for (ManagerOrder item : list) {
             placeHolderView.addView(new OrderView(getContext(), item, this));
         }
     }

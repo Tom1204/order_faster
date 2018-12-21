@@ -3,11 +3,14 @@ package com.example.iut.finalproject.manage.ui.placeholderViews;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.widget.ImageView;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
+import com.example.iut.finalproject.Database.Model.OrderItem;
 import com.example.iut.finalproject.R;
+import com.example.iut.finalproject.models.Item;
 import com.example.iut.finalproject.models.Order;
 import com.example.iut.finalproject.models.OrderItemRead;
 import com.example.iut.finalproject.rest_api.RestClient;
@@ -42,8 +45,8 @@ public class OrderItemView {
     @View(R.id.order_item_total_price)
     TextView orderItemTotalPrice;
 
-    @Toggle(R.id.order_item_ready_toogle)
-    ToggleButton orderItemReadyToogle;
+    @View(R.id.order_item_ready_toogle)
+    Switch orderItemReadyToogle;
 
     private SharedPreferences sharedPreferences;
 

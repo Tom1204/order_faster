@@ -8,7 +8,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class Order implements Serializable {
+public class ManagerOrder implements Serializable {
     public static final String  REJECTED = "rejected";
     public static final String  PENDING = "pending";
     public static final String  FINISHED = "finished";
@@ -26,9 +26,9 @@ public class Order implements Serializable {
     @SerializedName("status")
     private String status;
     @SerializedName("order_items")
-    private List<OrderItem> orderItems;
+    private List<OrderItemRead> orderItems;
 
-    public Order(int id, int tableNumber, Date createdDateTime, Double totalPrice) {
+    public ManagerOrder(int id, int tableNumber, Date createdDateTime, Double totalPrice) {
         this.id = id;
         this.tableNumber = tableNumber;
         this.createdDateTime = createdDateTime;
@@ -36,20 +36,20 @@ public class Order implements Serializable {
         this.orderItems = new ArrayList<>();
     }
 
-    public List<OrderItem> getOrderItems() {
+    public List<OrderItemRead> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<OrderItem> orderItems) {
+    public void setOrderItems(List<OrderItemRead> orderItems) {
         this.orderItems = orderItems;
     }
 
-    public Order(int tableNumber, List<OrderItem> orderItems) {
+    public ManagerOrder(int tableNumber, List<OrderItemRead> orderItems) {
         this.tableNumber = tableNumber;
         this.orderItems = orderItems;
     }
 
-    public Order(int id, Date createdDateTime, Double totalPrice) {
+    public ManagerOrder(int id, Date createdDateTime, Double totalPrice) {
         this.id = id;
         this.createdDateTime = createdDateTime;
         this.totalPrice = totalPrice;
@@ -76,7 +76,7 @@ public class Order implements Serializable {
         return status;
     }
 
-    public void addFood(OrderItem orderItem) {
+    public void addFood(OrderItemRead orderItem) {
         this.orderItems.add(orderItem);
     }
 
