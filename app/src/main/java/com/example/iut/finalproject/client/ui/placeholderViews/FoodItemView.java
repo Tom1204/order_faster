@@ -63,7 +63,7 @@ public class FoodItemView {
     public void onResolve() {
         foodTitle.setText(item.getName());
         description.setText(item.getDescription());
-        String price = String.valueOf(item.getPrice()) + " sum";
+        String price = String.valueOf(item.getPrice()) + " $";
         foodPrice.setText(price);
         Glide.with(context).load(item.getImage().getFile()).into(foodImage);
     }

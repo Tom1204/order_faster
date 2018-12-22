@@ -37,7 +37,7 @@ public class ItemDetailActivity extends AppCompatActivity {
         ButterKnife.bind(this);
         Item item = (Item) getIntent().getExtras().getSerializable("item");
         foodTitle.setText(item.getName());
-        foodPrice.setText("" + item.getPrice() + " sum");
+        foodPrice.setText("" + item.getPrice() + " $");
         foodIngredients.setText(item.getIngredients());
         foodDescription.setText(item.getDescription());
         Glide.with(this).load(item.getImage().getFile()).into(foodImage);
