@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <color name="colorPrimary">#FF8311</color>
-    <color name="colorPrimaryDark">#303F9F</color>
-    <color name="colorAccent">#FF4081</color>
+    <color name="colorPrimaryDark">#FF8311</color>
+    <color name="colorAccent">#FF8311</color>
     <color name="button_background_color">#FFDB80</color>
+    <color name="tab_background_color">#FFDB80</color>
     <color name="background_color">#FFF8E4</color>
     <color name="button_color">#308025</color>
-    <color name="link">#1a0dab</color>
+    <color name="link">#FF8311</color>
 </resources>

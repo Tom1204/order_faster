@@ -10,8 +10,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:background="@color/background_color">
 
+        <ImageView
+            android:layout_width="200dp"
+            android:layout_height="100dp"
+            android:src="@drawable/app_logo"/>
 
         <EditText
             android:id="@+id/username"
@@ -39,6 +44,7 @@
             android:layout_marginBottom="5dp"
             android:layout_marginEnd="120dp"
             android:layout_marginStart="120dp"
+            android:background="@color/button_background_color"
             android:text="Login" />
 
         <TextView
