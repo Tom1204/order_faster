@@ -31,7 +31,8 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".manage.ui.activities.OrderActivity" />
         </activity>
-
+        <activity android:name=".client.ui.activities.ClientOrderActivity" />
+        <activity android:name=".client.ui.activities.ClientOrderDescriptionActivity"></activity>
     </application>
 
 </manifest>

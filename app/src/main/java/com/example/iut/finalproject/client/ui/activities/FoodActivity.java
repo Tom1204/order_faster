@@ -86,20 +86,25 @@ public class FoodActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
+        getMenuInflater().inflate(R.menu.client_menu, menu);
         return true;
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.logout_action) {
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
-            editor.commit();
-            itemDao.clear();
-            Intent intent = new Intent(this, Login.class);
-            startActivity(intent);
-            finish();
+        Intent intent;
+        switch (item.getItemId()) {
+            case R.id.logout_action:
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.clear();
+                editor.commit();
+                itemDao.clear();
+                intent = new Intent(this, Login.class);
+                startActivity(intent);
+                finish();
+            case R.id.order_list:
+                intent = new Intent(this, ClientOrderActivity.class);
+                startActivity(intent);
         }
         return super.onOptionsItemSelected(item);
     }

@@ -70,6 +70,7 @@ public class Register extends RequiredFields {
                 public void onResponse(Call<Token> call, Response<Token> response) {
                     if (response.isSuccessful()) {
                         SharedPreferences.Editor editor = mPref.edit();
+                        editor.putInt("id", response.body().getId());
                         editor.putString("token", response.body().getToken());
                         editor.putString("token", response.body().getToken());
                         editor.putString("username", response.body().getUsername());
