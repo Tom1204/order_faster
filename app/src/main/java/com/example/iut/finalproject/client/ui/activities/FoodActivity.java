@@ -102,9 +102,11 @@ public class FoodActivity extends AppCompatActivity {
                 intent = new Intent(this, Login.class);
                 startActivity(intent);
                 finish();
+                break;
             case R.id.order_list:
                 intent = new Intent(this, ClientOrderActivity.class);
                 startActivity(intent);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }
