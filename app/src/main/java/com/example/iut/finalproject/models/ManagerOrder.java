@@ -1,6 +1,5 @@
 package com.example.iut.finalproject.models;
 
-import com.example.iut.finalproject.Database.Model.OrderItem;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
@@ -26,25 +25,25 @@ public class ManagerOrder implements Serializable {
     @SerializedName("status")
     private String status;
     @SerializedName("order_items")
-    private List<OrderItemRead> orderItems;
+    private ManagerOrderItemList orderItems;
 
     public ManagerOrder(int id, int tableNumber, Date createdDateTime, Double totalPrice) {
         this.id = id;
         this.tableNumber = tableNumber;
         this.createdDateTime = createdDateTime;
         this.totalPrice = totalPrice;
-        this.orderItems = new ArrayList<>();
+        this.orderItems = new ManagerOrderItemList();
     }
 
-    public List<OrderItemRead> getOrderItems() {
+    public ManagerOrderItemList getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<OrderItemRead> orderItems) {
+    public void setOrderItems(ManagerOrderItemList orderItems) {
         this.orderItems = orderItems;
     }
 
-    public ManagerOrder(int tableNumber, List<OrderItemRead> orderItems) {
+    public ManagerOrder(int tableNumber, ManagerOrderItemList orderItems) {
         this.tableNumber = tableNumber;
         this.orderItems = orderItems;
     }
@@ -53,7 +52,7 @@ public class ManagerOrder implements Serializable {
         this.id = id;
         this.createdDateTime = createdDateTime;
         this.totalPrice = totalPrice;
-        this.orderItems = new ArrayList<>();
+        this.orderItems = new ManagerOrderItemList();
     }
 
     public int getId() {
@@ -76,7 +75,7 @@ public class ManagerOrder implements Serializable {
         return status;
     }
 
-    public void addFood(OrderItemRead orderItem) {
+    public void addFood(ManagerOrderItem orderItem) {
         this.orderItems.add(orderItem);
     }
 

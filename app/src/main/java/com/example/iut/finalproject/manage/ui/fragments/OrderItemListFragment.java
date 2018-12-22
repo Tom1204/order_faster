@@ -6,21 +6,22 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CompoundButton;
 
-import com.example.iut.finalproject.Database.Model.OrderItem;
 import com.example.iut.finalproject.R;
 import com.example.iut.finalproject.manage.ui.placeholderViews.OrderItemView;
-import com.example.iut.finalproject.models.Order;
-import com.example.iut.finalproject.models.OrderItemRead;
+import com.example.iut.finalproject.models.ManagerOrderItem;
 import com.mindorks.placeholderview.InfinitePlaceHolderView;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnCheckedChanged;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -30,11 +31,13 @@ public class OrderItemListFragment extends Fragment implements OrderItemView.OnO
     @BindView(R.id.order_item_placeholder_view)
     public InfinitePlaceHolderView placeHolderView;
 
-    private List<OrderItemRead> orderItems;
+    private List<ManagerOrderItem> orderItems;
+    private OrderItemView.OnOrderItemStatusChanged onOrderItemStatusChanged;
 
-    public static OrderItemListFragment newInstance(List<OrderItemRead> orderItems) {
+    public static OrderItemListFragment newInstance(List<ManagerOrderItem> orderItems, OrderItemView.OnOrderItemStatusChanged onOrderItemStatusChanged) {
         OrderItemListFragment fragment = new OrderItemListFragment();
         fragment.setOrderItems(orderItems);
+        fragment.setOnOrderItemStatusChanged(onOrderItemStatusChanged);
         return fragment;
     }
 
@@ -54,17 +57,17 @@ public class OrderItemListFragment extends Fragment implements OrderItemView.OnO
         addViews(orderItems);
     }
 
-    private void addViews(List<OrderItemRead> list) {
-        for (OrderItemRead item : list) {
-            placeHolderView.addView(new OrderItemView(getContext(), item, this));
+    private void addViews(List<ManagerOrderItem> list) {
+        for (ManagerOrderItem item : list) {
+            placeHolderView.addView(new OrderItemView(getContext(), item, this, this.onOrderItemStatusChanged));
         }
     }
 
-    public List<OrderItemRead> getOrderItems() {
+    public List<ManagerOrderItem> getOrderItems() {
         return orderItems;
     }
 
-    public void setOrderItems(List<OrderItemRead> orderItems) {
+    public void setOrderItems(List<ManagerOrderItem> orderItems) {
         this.orderItems = orderItems;
     }
 
@@ -72,4 +75,9 @@ public class OrderItemListFragment extends Fragment implements OrderItemView.OnO
     public void onOrderItemIsDone(OrderItemView view) {
 
     }
+
+    public void setOnOrderItemStatusChanged(OrderItemView.OnOrderItemStatusChanged onOrderItemStatusChanged) {
+        this.onOrderItemStatusChanged = onOrderItemStatusChanged;
+    }
+
 }

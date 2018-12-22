@@ -6,7 +6,7 @@ import com.example.iut.finalproject.models.Client;
 import com.example.iut.finalproject.models.Item;
 import com.example.iut.finalproject.models.ManagerOrder;
 import com.example.iut.finalproject.models.Order;
-import com.example.iut.finalproject.models.OrderItemRead;
+import com.example.iut.finalproject.models.ManagerOrderItem;
 import com.example.iut.finalproject.models.Token;
 
 import okhttp3.ResponseBody;
@@ -43,10 +43,10 @@ public interface RouterApi {
     Call<ResponseBody> requestOrder(@Header("Authorization") String auth, @Body Order order);
 
     @GET("main/order_item/")
-    Call<ArrayResponse<OrderItemRead>> getOrderItemsByStatus(@Header("Authorization") String auth, @Query("status") String status);
+    Call<ArrayResponse<ManagerOrderItem>> getOrderItemsByStatus(@Header("Authorization") String auth, @Query("status") String status);
 
     @POST("main/order_item/{order_item_id}/is_prepared/")
-    Call<ResponseBody> preparedOrderItem(@Header("Authorization") String auth, @Path("order_item_id") int order_item_id);
+    Call<ResponseBody> prepareOrderItem(@Header("Authorization") String auth, @Path("order_item_id") int order_item_id);
 
     @PUT("main/order/{order_id}/")
     Call<ResponseBody> changeOrder(@Header("Authorization") String auth, @Path("order_id") int order_id, @Body Order order);
@@ -56,5 +56,11 @@ public interface RouterApi {
 
     @GET("main/order/extended/")
     Call<ArrayResponse<ManagerOrder>> getExtendedOrdersByStatus(@Header("Authorization") String auth, @Query("status") String status);
+
+    @PUT("main/order/{order_id}/finish/")
+    Call<ResponseBody> finishOrder(@Header("Authorization") String auth, @Path("order_id") int order_id);
+
+    @PUT("main/order_item/{order_item_id}/change_status/")
+    Call<ResponseBody> changeOrderItemStatus(@Header("Authorization") String auth, @Path("order_item_id") int order_item_id, @Body String status );
 
 }

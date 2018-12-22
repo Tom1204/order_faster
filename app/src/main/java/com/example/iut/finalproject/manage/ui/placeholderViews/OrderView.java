@@ -3,7 +3,7 @@ package com.example.iut.finalproject.manage.ui.placeholderViews;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.support.annotation.MainThread;
+import android.support.v7.widget.AppCompatImageButton;
 import android.widget.TextView;
 
 import com.example.iut.finalproject.R;
@@ -42,15 +42,24 @@ public class OrderView {
     @View(R.id.order_total_price)
     TextView orderTotalPrice;
 
+    @View(R.id.order_cancel)
+    AppCompatImageButton orderCancelButton;
+
+    @View(R.id.order_prepare)
+    AppCompatImageButton orderPrepareButton;
+
     private SharedPreferences sharedPreferences;
 
-    private OnOrderIsDoneListener onOrderIsDoneListener;
+    private OnOrderRemoved onOrderRemoved;
 
-    public OrderView(Context context, ManagerOrder order, OnOrderIsDoneListener onOrderIsDoneListener) {
+    private OnStatusButtonHideListener onStatusButtonHideListener;
+
+    public OrderView(Context context, ManagerOrder order, OnOrderRemoved onOrderRemoved, OnStatusButtonHideListener onStatusButtonHideListener) {
         sharedPreferences = context.getSharedPreferences("UserAuth", context.MODE_PRIVATE);
         this.order = order;
         this.context = context;
-        this.onOrderIsDoneListener = onOrderIsDoneListener;
+        this.onOrderRemoved = onOrderRemoved;
+        this.onStatusButtonHideListener = onStatusButtonHideListener;
     }
 
     @Resolve
@@ -60,10 +69,11 @@ public class OrderView {
         orderUserName.setText(order.getUser().getFirstName() + " " + order.getUser().getLastName());
         orderTableNumber.setText(String.valueOf(order.getTableNumber()));
         orderTotalPrice.setText(String.valueOf(order.getTotalPrice()));
+        onStatusButtonHideListener.onStatusButtonHide(orderCancelButton, orderPrepareButton);
     }
 
     @Click(R.id.order_cancel)
-    public void orderCancel() {
+    public void onCancelButtonClick() {
         order.setStatus(Order.REJECTED);
         RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
         String auth = String.valueOf("Token " + sharedPreferences.getString("token", ""));
@@ -72,7 +82,7 @@ public class OrderView {
             @Override
             public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                 if (response.isSuccessful()) {
-                    onOrderIsDoneListener.onOrderIsDone(OrderView.this);
+                    onOrderRemoved.onOrderRemoved(OrderView.this);
                 }
             }
 
@@ -84,13 +94,26 @@ public class OrderView {
     }
 
     @Click(R.id.order_prepare)
-    public void orderPrepare() {
+    public void onPrepareButtonClick() {
+        prepare();
+    }
+
+    @Click(R.id.card_view)
+    public void onCardViewClick() {
+        prepare();
+    }
+
+    private void prepare() {
         Intent intent = new Intent(context, OrderDescriptionActivity.class);
         intent.putExtra("order", order);
         context.startActivity(intent);
+
+    }
+    public interface OnOrderRemoved{
+        void onOrderRemoved(OrderView view);
     }
 
-    public interface OnOrderIsDoneListener {
-        void onOrderIsDone(OrderView view);
+    public interface OnStatusButtonHideListener {
+        void onStatusButtonHide(AppCompatImageButton cancel, AppCompatImageButton prepare);
     }
 }

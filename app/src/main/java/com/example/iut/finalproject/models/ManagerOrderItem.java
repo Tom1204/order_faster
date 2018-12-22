@@ -4,7 +4,11 @@ import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
 
-public class OrderItemRead implements Serializable {
+public class ManagerOrderItem implements Serializable {
+    public static final String  PREPARED = "prepared";
+    public static final String  PENDING = "pending";
+    public static final String  SERVED = "served";
+
     @SerializedName("id")
     private int id;
     @SerializedName("order")

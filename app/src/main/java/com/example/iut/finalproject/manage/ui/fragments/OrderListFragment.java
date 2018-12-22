@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +31,7 @@ import retrofit2.Response;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class OrderListFragment extends Fragment implements OrderView.OnOrderIsDoneListener {
+public class OrderListFragment extends Fragment implements OrderView.OnOrderRemoved, OrderView.OnStatusButtonHideListener {
 
     @BindView(R.id.order_placeholder_view)
     public InfinitePlaceHolderView placeHolderView;
@@ -42,7 +43,13 @@ public class OrderListFragment extends Fragment implements OrderView.OnOrderIsDo
     }
 
     private SharedPreferences sharedPreferences;
+    private OrderView.OnOrderRemoved onOrderRemoved;
 
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        sharedPreferences = getContext().getSharedPreferences("UserAuth", getContext().MODE_PRIVATE);
+        super.onCreate(savedInstanceState);
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -51,8 +58,13 @@ public class OrderListFragment extends Fragment implements OrderView.OnOrderIsDo
     }
 
     @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+//        if (isVisibleToUser && getContext() != null)
+        super.setUserVisibleHint(isVisibleToUser);
+    }
+
+    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        sharedPreferences = getContext().getSharedPreferences("UserAuth", getContext().MODE_PRIVATE);
         ButterKnife.bind(this, view);
         getItems();
     }
@@ -76,19 +88,37 @@ public class OrderListFragment extends Fragment implements OrderView.OnOrderIsDo
     }
 
     private void addViews(List<ManagerOrder> list) {
+        placeHolderView.removeAllViews();
         for (ManagerOrder item : list) {
-            placeHolderView.addView(new OrderView(getContext(), item, this));
+            placeHolderView.addView(new OrderView(getContext(), item, this, this));
         }
     }
 
-    static public OrderListFragment newInstance(String status) {
+    static public OrderListFragment newInstance(String status, OrderView.OnOrderRemoved onOrderRemoved) {
         OrderListFragment fragment = new OrderListFragment();
         fragment.setStatus(status);
+        fragment.setOnOrderRemoved(onOrderRemoved);
         return fragment;
     }
 
     @Override
-    public void onOrderIsDone(OrderView view) {
+    public void onOrderRemoved(OrderView view) {
         placeHolderView.removeView(view);
+        onOrderRemoved.onOrderRemoved(view);
+    }
+
+    @Override
+    public void onStatusButtonHide(AppCompatImageButton cancel, AppCompatImageButton prepare) {
+        if (status.equals(Order.REJECTED)) {
+            cancel.setVisibility(View.GONE);
+        }
+        else if (status.equals(Order.FINISHED)) {
+            cancel.setVisibility(View.GONE);
+            prepare.setVisibility(View.GONE);
+        }
+    }
+
+    public void setOnOrderRemoved(OrderView.OnOrderRemoved onOrderRemoved) {
+        this.onOrderRemoved = onOrderRemoved;
     }
 }

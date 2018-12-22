@@ -16,6 +16,7 @@ import android.view.MenuItem;
 import com.example.iut.finalproject.R;
 import com.example.iut.finalproject.client.ui.activities.Login;
 import com.example.iut.finalproject.manage.ui.fragments.OrderListFragment;
+import com.example.iut.finalproject.manage.ui.placeholderViews.OrderView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,7 +24,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class OrderActivity extends AppCompatActivity {
+public class OrderActivity extends AppCompatActivity implements OrderView.OnOrderRemoved {
 
     private SharedPreferences sharedPreferences;
 
@@ -49,7 +50,7 @@ public class OrderActivity extends AppCompatActivity {
     private void initViewPager() {
         String[] statuses = new String[]{"Pending", "Finished", "Rejected"};
         for (String status : statuses) {
-            adapter.add(OrderListFragment.newInstance(status.toLowerCase()), status);
+            adapter.add(OrderListFragment.newInstance(status.toLowerCase(), this), status);
         }
     }
 
@@ -73,6 +74,10 @@ public class OrderActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onOrderRemoved(OrderView view) {
+        adapter.notifyDataSetChanged();
+    }
 }
 
 class OrderPagerAdapter extends FragmentPagerAdapter {

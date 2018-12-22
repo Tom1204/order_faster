@@ -2,35 +2,26 @@ package com.example.iut.finalproject.manage.ui.placeholderViews;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.util.Log;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.ToggleButton;
 
 import com.bumptech.glide.Glide;
-import com.example.iut.finalproject.Database.Model.OrderItem;
 import com.example.iut.finalproject.R;
-import com.example.iut.finalproject.models.Item;
-import com.example.iut.finalproject.models.Order;
-import com.example.iut.finalproject.models.OrderItemRead;
-import com.example.iut.finalproject.rest_api.RestClient;
-import com.example.iut.finalproject.rest_api.RouterApi;
+import com.example.iut.finalproject.models.ManagerOrderItem;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
-import com.mindorks.placeholderview.annotations.expand.Toggle;
 
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
-import okhttp3.ResponseBody;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 @Layout(R.layout.order_item_view)
-public class OrderItemView {
-    private OrderItemRead orderItem;
+public class OrderItemView  implements CompoundButton.OnCheckedChangeListener{
+    private ManagerOrderItem orderItem;
     private Context context;
 
     @View(R.id.order_item_food_image)
@@ -45,18 +36,21 @@ public class OrderItemView {
     @View(R.id.order_item_total_price)
     TextView orderItemTotalPrice;
 
-    @View(R.id.order_item_ready_toogle)
-    Switch orderItemReadyToogle;
+    @View(R.id.order_item_ready_switch)
+    Switch orderItemReadySwitch;
 
     private SharedPreferences sharedPreferences;
 
     private OnOrderIsDoneListener onOrderIsDoneListener;
 
-    public OrderItemView(Context context, OrderItemRead orderItem, OnOrderIsDoneListener onOrderIsDoneListener) {
+    private OnOrderItemStatusChanged onOrderItemStatusChanged;
+
+    public OrderItemView(Context context, ManagerOrderItem orderItem, OnOrderIsDoneListener onOrderIsDoneListener, OnOrderItemStatusChanged onOrderItemStatusChanged) {
         sharedPreferences = context.getSharedPreferences("UserAuth", context.MODE_PRIVATE);
         this.orderItem = orderItem;
         this.context = context;
         this.onOrderIsDoneListener = onOrderIsDoneListener;
+        this.onOrderItemStatusChanged = onOrderItemStatusChanged;
     }
 
     @Resolve
@@ -65,14 +59,24 @@ public class OrderItemView {
         orderItemTitle.setText(orderItem.getItem().getName());
         orderItemDescription.setText(orderItem.getItem().getDescription());
         orderItemTotalPrice.setText(String.valueOf(orderItem.getTotalPrice()));
+        if (orderItem.getStatus().equals(ManagerOrderItem.PREPARED))
+            orderItemReadySwitch.setChecked(true);
+        orderItemReadySwitch.setOnCheckedChangeListener(this);
     }
 
-    @OnCheckedChanged(R.id.order_item_ready_toogle)
-    public void onOrderItemReadyToogle() {
-        System.out.println(orderItemReadyToogle.getTextOff());
-        System.out.println(orderItemReadyToogle.getTextOn());
+    @Click(R.id.card_view_order_item)
+    public void onOrderItemCardViewClick() {
+        //TODO: show Food Item description
     }
 
+    @Override
+    public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+        onOrderItemStatusChanged.onOrderItemStatusChanged(orderItem, b);
+    }
+
+    public interface OnOrderItemStatusChanged {
+        void onOrderItemStatusChanged(ManagerOrderItem orderItem, boolean ready);
+    }
     public interface OnOrderIsDoneListener {
         void onOrderItemIsDone(OrderItemView view);
     }
