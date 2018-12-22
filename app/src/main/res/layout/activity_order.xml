@@ -18,6 +18,7 @@
             android:id="@+id/orderviewpagertab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/button_background_color"
             />
 
     </android.support.design.widget.AppBarLayout>

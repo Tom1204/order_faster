@@ -4,10 +4,12 @@
     android:id="@+id/card_view"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_margin="10dp"
+    android:layout_margin="5dp"
     android:orientation="horizontal"
     app:cardCornerRadius="5dp"
-    app:cardElevation="5dp">
+    app:cardElevation="5dp"
+    android:foreground="?android:attr/selectableItemBackground"
+    android:clickable="true">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -74,7 +76,7 @@
                     android:layout_width="35dp"
                     android:layout_height="37dp"
                     android:layout_marginEnd="5dp"
-                    android:background="@color/button_background_color"
+                    android:backgroundTint="@color/button_background_color"
                     android:text="-" />
 
                 <TextView
@@ -90,7 +92,7 @@
                     android:layout_width="35dp"
                     android:layout_height="37dp"
                     android:layout_marginStart="5dp"
-                    android:background="@color/button_background_color"
+                    android:backgroundTint="@color/button_background_color"
                     android:text="+" />
             </LinearLayout>
 
@@ -104,8 +106,9 @@
                     android:layout_height="wrap_content"
                     android:text="Add to cart"
                     android:textSize="10dp"
-                    android:background="@color/button_background_color"
-                    android:textStyle="bold" />
+                    android:textStyle="bold"
+                    android:backgroundTint="@color/button_background_color"/>
+
             </LinearLayout>
 
         </LinearLayout>
