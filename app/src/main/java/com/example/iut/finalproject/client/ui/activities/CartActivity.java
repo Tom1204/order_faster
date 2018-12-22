@@ -113,7 +113,7 @@ public class CartActivity extends AppCompatActivity implements CartFoodItemView.
             }
         }
         totalPrice.setText(String.valueOf(
-                "Total price: " + totalPriceDouble + " $"
+                "Total price: " + String.format("%.2f", totalPriceDouble) + " $"
         ));
     }
 
@@ -126,7 +126,7 @@ public class CartActivity extends AppCompatActivity implements CartFoodItemView.
             totalPriceDouble += orderItemView.totalPrice;
         }
         totalPrice.setText(String.valueOf(
-                "Total price: " + totalPriceDouble + " $"
+                "Total price: " + String.format("%.2f", totalPriceDouble) + " $"
         ));
     }
 

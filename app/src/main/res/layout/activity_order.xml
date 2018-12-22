@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<!--This is an XML layout of OrderActivity-->
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -18,6 +19,7 @@
             android:id="@+id/orderviewpagertab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/button_background_color"
             />
 
     </android.support.design.widget.AppBarLayout>
