@@ -61,6 +61,9 @@ public interface RouterApi {
     Call<ResponseBody> finishOrder(@Header("Authorization") String auth, @Path("order_id") int order_id);
 
     @PUT("main/order_item/{order_item_id}/change_status/")
-    Call<ResponseBody> changeOrderItemStatus(@Header("Authorization") String auth, @Path("order_item_id") int order_item_id, @Body String status );
+    Call<ResponseBody> changeOrderItemStatus(@Header("Authorization") String auth, @Path("order_item_id") int order_item_id, @Body String status);
+
+    @GET("main/order/extended/")
+    Call<ArrayResponse<ManagerOrder>> getOrderByUserStatus(@Header("Authorization") String auth, @Query("status") String status, @Query("user") int userId);
 
 }

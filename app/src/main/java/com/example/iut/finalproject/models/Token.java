@@ -3,6 +3,9 @@ package com.example.iut.finalproject.models;
 import com.google.gson.annotations.SerializedName;
 
 public class Token {
+    @SerializedName("id")
+    private int id;
+
     @SerializedName("token")
     private String token;
 
@@ -56,5 +59,13 @@ public class Token {
 
     public void setUserType(String userType) {
         this.userType = userType;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }
