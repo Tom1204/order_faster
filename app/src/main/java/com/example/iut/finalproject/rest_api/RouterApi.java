@@ -37,7 +37,7 @@ public interface RouterApi {
     Call<Token> registerClient(@Body Client client);
 
     @GET("main/item/")
-    Call<ArrayResponse<Item>> getItemsById(@Query("ids") String ids);
+    Call<ArrayResponse<Item>> getItemsById(@Query("ids") String ids, @Query("page_size") int count);
 
     @POST("main/order/")
     Call<ResponseBody> requestOrder(@Header("Authorization") String auth, @Body Order order);

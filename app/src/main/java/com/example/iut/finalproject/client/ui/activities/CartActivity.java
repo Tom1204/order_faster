@@ -74,9 +74,10 @@ public class CartActivity extends AppCompatActivity implements CartFoodItemView.
             ids += "-" + itemId;
             Log.d("ItemSize", "" + itemId);
         }
+        ids = ids.substring(1);
         RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
 
-        Call<ArrayResponse<Item>> call = service.getItemsById(ids);
+        Call<ArrayResponse<Item>> call = service.getItemsById(ids, itemIds.size());
         call.enqueue(new Callback<ArrayResponse<Item>>() {
             @Override
             public void onResponse(Call<ArrayResponse<Item>> call, Response<ArrayResponse<Item>> response) {
