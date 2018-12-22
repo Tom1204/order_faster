@@ -19,6 +19,6 @@
         android:layout_margin="20dp"
         android:src="@drawable/ic_shopping_cart_white"
         app:fabSize="normal"
-        android:backgroundTint="#ff9408"/>
+        android:backgroundTint="@color/colorPrimary"/>
 
 </android.support.design.widget.CoordinatorLayout>

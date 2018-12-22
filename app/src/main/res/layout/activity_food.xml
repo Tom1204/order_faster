@@ -17,6 +17,8 @@
             android:id="@+id/viewpagertab"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:background="@color/tab_background_color"
+            app:tabIndicatorColor="@color/colorPrimary"
             app:tabMode="scrollable"
             />
 
