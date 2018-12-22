@@ -33,11 +33,13 @@ public class OrderItemListFragment extends Fragment implements OrderItemView.OnO
 
     private List<ManagerOrderItem> orderItems;
     private OrderItemView.OnOrderItemStatusChanged onOrderItemStatusChanged;
+    private String orderStatus;
 
-    public static OrderItemListFragment newInstance(List<ManagerOrderItem> orderItems, OrderItemView.OnOrderItemStatusChanged onOrderItemStatusChanged) {
+    public static OrderItemListFragment newInstance(List<ManagerOrderItem> orderItems, OrderItemView.OnOrderItemStatusChanged onOrderItemStatusChanged, String orderStatus) {
         OrderItemListFragment fragment = new OrderItemListFragment();
         fragment.setOrderItems(orderItems);
         fragment.setOnOrderItemStatusChanged(onOrderItemStatusChanged);
+        fragment.setOrderStatus(orderStatus);
         return fragment;
     }
 
@@ -59,7 +61,7 @@ public class OrderItemListFragment extends Fragment implements OrderItemView.OnO
 
     private void addViews(List<ManagerOrderItem> list) {
         for (ManagerOrderItem item : list) {
-            placeHolderView.addView(new OrderItemView(getContext(), item, this, this.onOrderItemStatusChanged));
+            placeHolderView.addView(new OrderItemView(getContext(), item, this, this.onOrderItemStatusChanged, orderStatus));
         }
     }
 
@@ -80,4 +82,7 @@ public class OrderItemListFragment extends Fragment implements OrderItemView.OnO
         this.onOrderItemStatusChanged = onOrderItemStatusChanged;
     }
 
+    public void setOrderStatus(String orderStatus) {
+        this.orderStatus = orderStatus;
+    }
 }

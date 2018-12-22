@@ -62,7 +62,6 @@ public class OrderDescriptionActivity extends AppCompatActivity implements Order
 
     @BindView(R.id.order_status)
     TextView orderStatus;
-    private OnOrderFinishedListener onOrderFinishedListener;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,7 +72,7 @@ public class OrderDescriptionActivity extends AppCompatActivity implements Order
         ButterKnife.bind(this);
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.order_item_list_frame, OrderItemListFragment.newInstance(order.getOrderItems(), this))
+                .add(R.id.order_item_list_frame, OrderItemListFragment.newInstance(order.getOrderItems(), this, order.getStatus()))
                 .commit();
         init();
     }
@@ -86,29 +85,7 @@ public class OrderDescriptionActivity extends AppCompatActivity implements Order
         orderNumberOfMeals.setText(String.valueOf(order.getOrderItems().size()));
         orderTotalPrice.setText(String.valueOf(order.getTotalPrice()));
         orderStatus.setText(order.getStatus());
-
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.logout_menu, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == R.id.logout_action) {
-            sharedPreferences = getSharedPreferences("UserAuth", MODE_PRIVATE);
-            SharedPreferences.Editor editor = sharedPreferences.edit();
-            editor.clear();
-            editor.commit();
-            Intent intent = new Intent(this, Login.class);
-            startActivity(intent);
-            finish();
-        }
-        return super.onOptionsItemSelected(item);
-    }
-
 
     public ManagerOrder getOrder() {
         return order;
@@ -154,7 +131,6 @@ public class OrderDescriptionActivity extends AppCompatActivity implements Order
                         public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                             if (response.isSuccessful()) {
                                 Log.v("order_finish", "Order finish request is sent and successful");
-                                onOrderFinishedListener.onOrderFinish();
                             }
                             else Log.v("order_finish", response.message());
                         }
@@ -187,11 +163,4 @@ public class OrderDescriptionActivity extends AppCompatActivity implements Order
         Log.v("", "");
     }
 
-    public void setOnOrderFinishedListener(OnOrderFinishedListener onOrderFinishedListener) {
-        this.onOrderFinishedListener = onOrderFinishedListener;
-    }
-
-    public interface OnOrderFinishedListener {
-        void onOrderFinish();
-    }
 }
