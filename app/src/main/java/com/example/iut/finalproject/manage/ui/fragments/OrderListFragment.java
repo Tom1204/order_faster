@@ -59,14 +59,14 @@ public class OrderListFragment extends Fragment implements OrderView.OnOrderRemo
 
     @Override
     public void setUserVisibleHint(boolean isVisibleToUser) {
-//        if (isVisibleToUser && getContext() != null)
+        if (isVisibleToUser && getContext() != null)
+            getItems();
         super.setUserVisibleHint(isVisibleToUser);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         ButterKnife.bind(this, view);
-        getItems();
     }
 
     private void getItems() {
@@ -110,6 +110,7 @@ public class OrderListFragment extends Fragment implements OrderView.OnOrderRemo
     @Override
     public void onStatusButtonHide(AppCompatImageButton cancel, AppCompatImageButton prepare) {
         if (status.equals(Order.REJECTED)) {
+            prepare.setVisibility(View.GONE);
             cancel.setVisibility(View.GONE);
         }
         else if (status.equals(Order.FINISHED)) {

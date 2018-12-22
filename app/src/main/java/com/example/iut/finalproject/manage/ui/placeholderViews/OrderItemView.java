@@ -2,7 +2,6 @@ package com.example.iut.finalproject.manage.ui.placeholderViews;
 
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.util.Log;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.Switch;
@@ -11,13 +10,12 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.example.iut.finalproject.R;
 import com.example.iut.finalproject.models.ManagerOrderItem;
+import com.example.iut.finalproject.models.Order;
 import com.mindorks.placeholderview.annotations.Click;
 import com.mindorks.placeholderview.annotations.Layout;
 import com.mindorks.placeholderview.annotations.Resolve;
 import com.mindorks.placeholderview.annotations.View;
 
-import butterknife.OnCheckedChanged;
-import butterknife.OnClick;
 
 @Layout(R.layout.order_item_view)
 public class OrderItemView  implements CompoundButton.OnCheckedChangeListener{
@@ -44,13 +42,15 @@ public class OrderItemView  implements CompoundButton.OnCheckedChangeListener{
     private OnOrderIsDoneListener onOrderIsDoneListener;
 
     private OnOrderItemStatusChanged onOrderItemStatusChanged;
+    private String orderStatus;
 
-    public OrderItemView(Context context, ManagerOrderItem orderItem, OnOrderIsDoneListener onOrderIsDoneListener, OnOrderItemStatusChanged onOrderItemStatusChanged) {
+    public OrderItemView(Context context, ManagerOrderItem orderItem, OnOrderIsDoneListener onOrderIsDoneListener, OnOrderItemStatusChanged onOrderItemStatusChanged, String status) {
         sharedPreferences = context.getSharedPreferences("UserAuth", context.MODE_PRIVATE);
         this.orderItem = orderItem;
         this.context = context;
         this.onOrderIsDoneListener = onOrderIsDoneListener;
         this.onOrderItemStatusChanged = onOrderItemStatusChanged;
+        this.orderStatus = status;
     }
 
     @Resolve
@@ -62,6 +62,8 @@ public class OrderItemView  implements CompoundButton.OnCheckedChangeListener{
         if (orderItem.getStatus().equals(ManagerOrderItem.PREPARED))
             orderItemReadySwitch.setChecked(true);
         orderItemReadySwitch.setOnCheckedChangeListener(this);
+        if (orderStatus.equals(Order.FINISHED) || orderStatus.equals(Order.REJECTED))
+            orderItemReadySwitch.setVisibility(android.view.View.GONE);
     }
 
     @Click(R.id.card_view_order_item)

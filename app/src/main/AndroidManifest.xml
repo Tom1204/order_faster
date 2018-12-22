@@ -24,7 +24,14 @@
         <activity android:name=".client.ui.activities.ItemDetailActivity" />
         <activity android:name=".client.ui.activities.CartActivity" />
         <activity android:name=".manage.ui.activities.OrderActivity" />
-        <activity android:name=".manage.ui.activities.OrderDescriptionActivity"></activity>
+        <activity
+            android:name=".manage.ui.activities.OrderDescriptionActivity"
+            android:parentActivityName=".manage.ui.activities.OrderActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".manage.ui.activities.OrderActivity" />
+        </activity>
+
     </application>
 
 </manifest>
