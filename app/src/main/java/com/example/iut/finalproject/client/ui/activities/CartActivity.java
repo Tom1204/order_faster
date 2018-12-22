@@ -1,16 +1,15 @@
 package com.example.iut.finalproject.client.ui.activities;
 
 import android.arch.persistence.room.Room;
-import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.EditText;
+import android.widget.FrameLayout;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 
 import com.example.iut.finalproject.Database.LocalDb;
@@ -148,12 +147,15 @@ public class CartActivity extends AppCompatActivity implements CartFoodItemView.
     private void askTableInput() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("Confirm order to table");
-        final EditText tableNumber = new EditText(this);
-        tableNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
-        builder.setView(tableNumber);
+        final NumberPicker tableNumber = new NumberPicker(this);
+        tableNumber.setMinValue(0);
+        tableNumber.setMaxValue(100);
+        FrameLayout frameLayout = new FrameLayout(this);
+        frameLayout.addView(tableNumber);
+        builder.setView(frameLayout);
 
         builder.setPositiveButton("Confirm", (dialog, which) -> {
-            int table = Integer.parseInt(tableNumber.getText().toString());
+            int table = tableNumber.getValue();
             Order order = new Order(table, itemDao.allOrderItem());
 
             RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
