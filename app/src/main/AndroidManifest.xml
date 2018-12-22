@@ -21,18 +21,39 @@
         </activity>
         <activity android:name=".client.ui.activities.FoodActivity" />
         <activity android:name=".client.ui.activities.Register" />
-        <activity android:name=".client.ui.activities.ItemDetailActivity" />
-        <activity android:name=".client.ui.activities.CartActivity" />
+        <activity
+            android:name=".client.ui.activities.ItemDetailActivity"
+            android:parentActivityName=".client.ui.activities.FoodActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".client.ui.activities.FoodActivity" />
+        </activity>
+        <activity
+            android:name=".client.ui.activities.CartActivity"
+            android:parentActivityName=".client.ui.activities.FoodActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".client.ui.activities.FoodActivity" />
+        </activity>
         <activity android:name=".manage.ui.activities.OrderActivity" />
         <activity
             android:name=".manage.ui.activities.OrderDescriptionActivity"
             android:parentActivityName=".manage.ui.activities.OrderActivity">
+        </activity>
+        <activity
+            android:name=".client.ui.activities.ClientOrderActivity"
+            android:parentActivityName=".client.ui.activities.FoodActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".manage.ui.activities.OrderActivity" />
+                android:value=".client.ui.activities.FoodActivity" />
         </activity>
-        <activity android:name=".client.ui.activities.ClientOrderActivity" />
-        <activity android:name=".client.ui.activities.ClientOrderDescriptionActivity"></activity>
+        <activity
+            android:name=".client.ui.activities.ClientOrderDescriptionActivity"
+            android:parentActivityName=".client.ui.activities.ClientOrderActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".client.ui.activities.ClientOrderActivity" />
+        </activity>
     </application>
 
 </manifest>
