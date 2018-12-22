@@ -74,7 +74,8 @@ public class CartActivity extends AppCompatActivity implements CartFoodItemView.
             ids += "-" + itemId;
             Log.d("ItemSize", "" + itemId);
         }
-        ids = ids.substring(1);
+        if (itemIds.size() > 0)
+            ids = ids.substring(1);
         RouterApi service = RestClient.getRetrofitInstance().create(RouterApi.class);
 
         Call<ArrayResponse<Item>> call = service.getItemsById(ids, itemIds.size());
@@ -83,7 +84,8 @@ public class CartActivity extends AppCompatActivity implements CartFoodItemView.
             public void onResponse(Call<ArrayResponse<Item>> call, Response<ArrayResponse<Item>> response) {
                 if (response.isSuccessful()) {
                     items = response.body().list;
-                    addViews(items);
+                    if (items.size() > 0)
+                        addViews(items);
                 }
             }
 
